@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -z "$1" ]; then
   org=$(gum input --prompt="org: ")
@@ -11,7 +11,7 @@ if [ -z $org ]; then
   exit
 fi
 
-only_source=$(gum input --prompt="Clone only non-forks? [y]es|[n]o: " --value="y")
+only_source=$(gum input --prompt="Clone only non-forks? [y/n]: " --value="y")
 if [ $only_source = 'y' ]; then
   source_option="--source"
 fi
