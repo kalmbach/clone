@@ -1,0 +1,38 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  org=$(gum input --prompt="org: ")
+else
+  org=$1
+fi
+
+if [ -z $org ]; then
+  echo "No organization to clone."
+  exit
+fi
+
+only_source=$(gum input --prompt="Clone only non-forks? [y]es|[n]o: " --value="y")
+if [ $only_source = 'y' ]; then
+  source_option="--source"
+fi
+
+repositories=(
+  $(gh repo list "$org" \
+      --limit 100 \
+      $source_option \
+      --no-archived \
+      --json sshUrl -q ".[].sshUrl"
+    )
+)
+
+dir=$(gum input --prompt="Choose directory name: " --value="$org")
+
+echo "cloning ${#repositories[@]} repositories from ${org}"
+mkdir -p "$dir"
+cd "$dir"
+
+for repo in "${repositories[@]}"
+do
+  echo "cloning ${repo}"
+  git clone --quiet "$repo"
+done
