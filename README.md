@@ -1,5 +1,6 @@
 # clone 
 bash script to clone all the repositories from a github account.
+
 ![demo](https://github.com/user-attachments/assets/f404a838-f90b-4de6-92db-6f6b99c57545)
 
 ## usage
